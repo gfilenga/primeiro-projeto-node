@@ -1,3 +1,10 @@
+# Comandos utilizados
+- yarn init -y (Para inicializar o package.json)
+- yarn add typescript -D
+- yarn tsc --init (Para inicializar o tsconfig.json)
+- yarn tsc (Converte o código typescript para javascript pro node conseguir entender)
+
+
 # Recuperação de senha
 
 **Requisitos Funcionais - (RF)**
