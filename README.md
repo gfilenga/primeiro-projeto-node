@@ -1,9 +1,22 @@
 # Comandos utilizados
 - yarn init -y (Para inicializar o package.json)
+
 - yarn add typescript -D
 - yarn tsc --init (Para inicializar o tsconfig.json)
 - yarn tsc (Converte o código typescript para javascript pro node conseguir entender)
 
+- yarn add express
+- yarn add @types/express -D (Pacote de tipos do express)
+
+- node dist/server.js (executa o código convertido)
+
+- yarn add ts-node-dev -D (Serve pra executar o projeto typescript em desenvolvimento, sem que precise ficar buildando com yarn tsc o tempo todo)
+- yarn ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts
+("scripts": { yarn dev:server })
+
+- yarn add uuidv4 (Lib usada para gerar um id único)
+
+- yarn add date-fns (Lib usada para lidar com datas)
 
 # Recuperação de senha
 
