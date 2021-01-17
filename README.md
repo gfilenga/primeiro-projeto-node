@@ -18,6 +18,14 @@
 
 - yarn add date-fns (Lib usada para lidar com datas)
 
+**Configurando imports**
+
+    "paths": {
+        "@modules/*":["modules/*"],
+        "@config/*":["config/*"],
+        "@shared/*":["shared/*"]
+    },
+
 **Configurando TypeORM**
 
 - docker run --name nomeAqui -e POSTGRES_PASSWORD=senhaAqui -d postgres -p 5432:5432 -d postgres (Comando para criar um container)
@@ -26,7 +34,7 @@
 
 - Configurações do arquivo ormconfig.json
 
-{
+
     "type": "postgres",
     "host": "localhost",
     "port": 5432,
@@ -42,16 +50,18 @@
     "cli": {
         "migrationsDir": "./src/database/migrations"
     }
-}
+
 
 - Criando conexão
 
 import { createConnection } from 'typeorm';
 
-// Procura dentro do projeto o arquivo "ormconfig.json" e faz a conexão de acordo com esse arquivo.
+- Procura dentro do projeto o arquivo "ormconfig.json" e faz a conexão de acordo com esse arquivo.
+
 createConnection();
 
 - Importando o arquivo de conexão dentro do server.ts
+
 import './database';
 
 - yarn ts-node-dev ./node_modules/typeorm/cli.js ("scripts": { yarn typeorm }) (ts-node-dev converte os arquivos typescript antes de executar o comando)
