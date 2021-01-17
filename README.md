@@ -10,16 +10,18 @@
 
 - node dist/server.js (executa o código convertido)
 
-- yarn add ts-node-dev -D (Serve pra executar o projeto typescript em desenvolvimento, sem que precise ficar buildando com yarn tsc o tempo todo)
-- yarn ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts
+- yarn add tsconfig-paths -D (Lib que converte os caminhos atalhos com "@" para normal)
+- yarn add ts-node-dev -D (Lib que executa o projeto typescript em desenvolvimento e builda automaticamente com "yarn tsc" toda vez)
+- yarn ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts
 ("scripts": { yarn dev:server })
 
 - yarn add uuidv4 (Lib usada para gerar um id único)
 
 - yarn add date-fns (Lib usada para lidar com datas)
 
-**Configurando imports(tsconfig.json)**
+**Configurando atalhos para importação(tsconfig.json)**
 
+    "baseUrl": "./src",
     "paths": {
         "@modules/*":["modules/*"],
         "@config/*":["config/*"],
@@ -34,7 +36,7 @@
 
 - Configurações do arquivo ormconfig.json
 
-"type": "postgres",
+    "type": "postgres",
     "host": "localhost",
     "port": 5432,
     "username": "postgres",
@@ -79,27 +81,27 @@ import './database';
 
 - Adicionar decorators nas entidades. Exemplo:
 
-@Entity('appointments')
-class Appointment {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+        @Entity('appointments')
+        class Appointment {
+            @PrimaryGeneratedColumn('uuid')
+            id: string;
 
-    @Column()
-    provider_id: string;
+            @Column()
+            provider_id: string;
 
-    @ManyToOne(() => User)
-    @JoinColumn({ name: 'provider_id' })
-    provider: User;
+            @ManyToOne(() => User)
+            @JoinColumn({ name: 'provider_id' })
+            provider: User;
 
-    @Column('timestamp with time zone')
-    date: Date;
+            @Column('timestamp with time zone')
+            date: Date;
 
-    @CreateDateColumn()
-    created_at: Date;
+            @CreateDateColumn()
+            created_at: Date;
 
-    @UpdateDateColumn()
-    updated_at: Date;
-}
+            @UpdateDateColumn()
+            updated_at: Date;
+        }
 
 - yarn add reflect-metadata (dependência que o typescript tem com a syntax de decorators)
 
