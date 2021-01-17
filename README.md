@@ -18,9 +18,7 @@
 
 - yarn add date-fns (Lib usada para lidar com datas)
 
-**Configurando imports**
-
-- Dentro de tsconfig.json
+**Configurando imports(tsconfig.json)**
 
     "paths": {
         "@modules/*":["modules/*"],
