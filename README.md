@@ -34,22 +34,20 @@
 
 - Configurações do arquivo ormconfig.json
 
-    }
-        "type": "postgres",
-        "host": "localhost",
-        "port": 5432,
-        "username": "nomeAqui",
-        "password": "senhaAqui",
-        "database": "nomeDatabase",
-        "entities": [
-            "./src/models/*.ts"
-        ],
-        "migrations": [
-            "./src/database/migrations/*.ts"
-        ],
-        "cli": {
-            "migrationsDir": "./src/database/migrations"
-        },
+"type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "docker",
+    "database": "gostack_gobarber",
+    "entities": [
+        "./src/modules/**/infra/typeorm/entities/*.ts"
+    ],
+    "migrations": [
+        "./src/shared/infra/typeorm/migrations/*.ts"
+    ],
+    "cli": {
+        "migrationsDir": "./src/shared/infra/typeorm/migrations"
     }
 
 - Criando conexão
