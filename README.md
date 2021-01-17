@@ -34,23 +34,23 @@
 
 - Configurações do arquivo ormconfig.json
 
-
-    "type": "postgres",
-    "host": "localhost",
-    "port": 5432,
-    "username": "nomeAqui",
-    "password": "senhaAqui",
-    "database": "nomeDatabase",
-    "entities": [
-        "./src/models/*.ts"
-    ],
-    "migrations": [
-        "./src/database/migrations/*.ts"
-    ],
-    "cli": {
-        "migrationsDir": "./src/database/migrations"
     }
-
+        "type": "postgres",
+        "host": "localhost",
+        "port": 5432,
+        "username": "nomeAqui",
+        "password": "senhaAqui",
+        "database": "nomeDatabase",
+        "entities": [
+            "./src/models/*.ts"
+        ],
+        "migrations": [
+            "./src/database/migrations/*.ts"
+        ],
+        "cli": {
+            "migrationsDir": "./src/database/migrations"
+        },
+    }
 
 - Criando conexão
 
