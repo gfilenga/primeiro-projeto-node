@@ -20,6 +20,8 @@
 
 **Configurando imports**
 
+- Dentro de tsconfig.json
+
     "paths": {
         "@modules/*":["modules/*"],
         "@config/*":["config/*"],
