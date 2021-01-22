@@ -1,3 +1,75 @@
+# Recuperação de senha
+
+**Requisitos Funcionais - (RF)**
+
+- O usuário deve poder recuperar sua senha informando o seu e-mail;
+- O usuário deve receber um e-mail com instruções de recuperação de senha;
+- O usuário deve poder resetar sua senha;
+
+**Requisitos não Funcionais - (RNF)**
+
+- Utilizar Mailtrap para testar envios em ambiente desenvolvimento;
+- Utilizar o Amazon SES(simple e-mail service) para envios em produção;
+- O envio de e-mails deve acontecer em segundo plano (background job);
+
+**Requisitos de Negócio - (RN)**
+
+- O link enviado por e-mail para resetar senha, deve expirar em 2h;
+- O usuário precisa confirmar a nova senha ao resetar sua senha;
+
+
+# Atualização do perfil
+
+**RF**
+
+- O usuário deve poder atualizar seu nome, e-mail e senha;
+
+**RN**
+
+- O usuário não pode alterar seu e-mail para um e-mail já utilizado por outro usuário;
+- Para atualizar sua senha, o usuário deve informar a senha antiga;
+- Para atualizar sua senha, o usuário precisa confirmar a nova senha;
+
+# Painel do prestador
+
+**RF**
+
+- O usuário deve poder listar seus agendamentos de um dia específico;
+- O prestador deve receber uma notificação sempre que houver um novo agendamento;
+- O prestador deve poder visualizar as notificações não lidas;
+
+**RNF**
+
+- Os agendamentos do prestador no dia devem ser armazenados em cache;
+- As notificações do prestador devem ser armazenadas no MongoDB;
+- As notificações do prestador devem ser enviadas em tempo real utilizando Socket.io;
+
+**RN**
+
+- A notificação deve ter um status de lida ou não lida para que o prestador possa controlar;
+
+# Agendamento de serviços
+
+**RF**
+
+- O usuário deve poder listar todos prestadores de serviço cadastrados;
+- O usuário deve poder listar os dias de um mês com pelo menos um horário disponível de um prestador;
+- O usuário deve poder listar horários disponíveis em um dia específico de um prestador;
+- O usuário deve poder realizar um novo agendamento com um prestador;
+
+**RNF**
+
+- A listagem de prestadores deve ser armazenada em cache;
+
+**RN**
+
+- Cada agendamento deve durar 1 hora exatamente;
+- Os agendamentos devem estar disponíveis das 8h às 18h (Primeiro às 8h, último às 17h);
+- O usuário não pode agendar em um horário já ocupado;
+- O usuário não pode agendar em um horário que já passou;
+- O usuário não pode agendar serviços consigo mesmo;
+
+
 # Comandos utilizados
 - yarn init -y (Para inicializar o package.json)
 
@@ -185,73 +257,68 @@ export default {
 - yarn add express-async-errors (Pacote pra que o express consiga captar erros em rotas async)
 - import 'express-async-errors'; (Importar logo após da importação do express)
 
-# Recuperação de senha
+**Injeção de dependências**
 
-**Requisitos Funcionais - (RF)**
+- yarn add tsyringe
 
-- O usuário deve poder recuperar sua senha informando o seu e-mail;
-- O usuário deve receber um e-mail com instruções de recuperação de senha;
-- O usuário deve poder resetar sua senha;
+# Testes e Test Driven Development (TDD)
 
-**Requisitos não Funcionais - (RNF)**
+- A aplicação continue funcionando independente do número de novas funcionalidades e do número de devs no time.
 
-- Utilizar Mailtrap para testar envios em ambiente desenvolvimento;
-- Utilizar o Amazon SES(simple e-mail service) para envios em produção;
-- O envio de e-mails deve acontecer em segundo plano (background job);
+1. Testes unitários
 
-**Requisitos de Negócio - (RN)**
+- Testam funcionalidades específicas da nossa aplicação (precisam ser funções puras, que independem de serviços externos).
 
-- O link enviado por e-mail para resetar senha, deve expirar em 2h;
-- O usuário precisa confirmar a nova senha ao resetar sua senha;
+- Exemplo: Jamais fará uma chamada à uma API e efeito colateral.
 
+2. Testes de integração
 
-# Atualização do perfil
+- Testam uma funcionalidade completa, passando por várias camadas da aplicação.
 
-**RF**
+- Exemplo: Route ==> Controller ==> Serviço ==> Repositório ==> ...
 
-- O usuário deve poder atualizar seu nome, e-mail e senha;
+3. Testes E2E (EndToEnd)
 
-**RN**
+- Testes que simulam a ação do usuário dentro da aplicação.
 
-- O usuário não pode alterar seu e-mail para um e-mail já utilizado por outro usuário;
-- Para atualizar sua senha, o usuário deve informar a senha antiga;
-- Para atualizar sua senha, o usuário precisa confirmar a nova senha;
+**Configurando Jest**
 
-# Painel do prestador
+- yarn add jest -D
+- yarn jest --init (Yes => Node => No => Yes )
+- yarn add ts-jest -D (Para conseguir ler os arquivos de teste escritos em typescript)
 
-**RF**
+- jest.config.js:
+    preset: 'ts-jest',
+    testMatch: [
+        "**/*.spec.ts"
+    ],
 
-- O usuário deve poder listar seus agendamentos de um dia específico;
-- O prestador deve receber uma notificação sempre que houver um novo agendamento;
-- O prestador deve poder visualizar as notificações não lidas;
+- Para o jest entender a syntax de atalhos de importações(jest.config.js):
 
-**RNF**
+    const { pathsToModuleNameMapper } = require('ts-jest/utils');
+    const { compilerOptions } = require('./tsconfig.json');
 
-- Os agendamentos do prestador no dia devem ser armazenados em cache;
-- As notificações do prestador devem ser armazenadas no MongoDB;
-- As notificações do prestador devem ser enviadas em tempo real utilizando Socket.io;
+        moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/src/' }),
 
-**RN**
+**Configurando o coverage report**
 
-- A notificação deve ter um status de lida ou não lida para que o prestador possa controlar;
+- jest.config.js:
 
-# Agendamento de serviços
+    collectCoverage: true,
+    collectCoverageFrom: [
+        '<rootDir>/src/modules/**/services/*.ts'
+    ],
+    coverageDirectory: 'coverage',
+    coverageProvider: "v8",
+    coverageReporters: [
+      "text-summary",
+      "lcov",
+    ],
 
-**RF**
+# Emails em desenvolvimento
 
-- O usuário deve poder listar todos prestadores de serviço cadastrados;
-- O usuário deve poder listar os dias de um mês com pelo menos um horário disponível de um prestador;
-- O usuário deve poder listar horários disponíveis em um dia específico de um prestador;
-- O usuário deve poder realizar um novo agendamento com um prestador;
+- yarn add nodemailer
 
-**RNF**
+**Template de emails**
 
-- A listagem de prestadores deve ser armazenada em cache;
-
-**RN**
-
-- Cada agendamento deve durar 1 hora exatamente;
-- Os agendamentos devem estar disponíveis das 8h às 18h (Primeiro às 8h, último às 17h);
-- O usuário não pode agendar em um horário já ocupado;
-- O usuário não pode agendar em um horário que já passou;
-- O usuário não pode agendar serviços consigo mesmo;
+- yarn add handlebars
