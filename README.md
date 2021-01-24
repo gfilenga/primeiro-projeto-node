@@ -322,3 +322,21 @@ export default {
 **Template de emails**
 
 - yarn add handlebars
+
+# Configurando MongoDB com docker
+
+- docker run --name mongodb -p 27017:27017 -d -t mongo
+
+- yarn add mongodb
+
+- Configuração ormconfig.json
+
+        "name":"mongo",
+        "type": "mongodb",
+        "host": "localhost",
+        "port": 27017,
+        "database": "gobarber",
+        "useUnifiedTopology": true,
+        "entities": [
+            "./src/modules/**/infra/typeorm/schemas/*.ts"
+        ]
