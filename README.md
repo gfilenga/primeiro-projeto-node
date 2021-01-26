@@ -344,3 +344,7 @@ export default {
 # Validando dados
 
 - yarn add celebrate
+
+# Variáveis ambiente
+
+- yarn add dotenv
