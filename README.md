@@ -340,3 +340,7 @@ export default {
         "entities": [
             "./src/modules/**/infra/typeorm/schemas/*.ts"
         ]
+
+# Validando dados
+
+- yarn add celebrate
