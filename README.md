@@ -348,3 +348,7 @@ export default {
 # Variáveis ambiente
 
 - yarn add dotenv
+
+# Utilizando Class Transformer
+
+- yarn add class-transformer
