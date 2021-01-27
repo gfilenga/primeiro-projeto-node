@@ -356,3 +356,7 @@ export default {
 # Emails pelo Amazon SES
 
 - yarn add aws-sdk
+
+# Upload de arquivos com Amazon S3
+
+- yarn add mime
