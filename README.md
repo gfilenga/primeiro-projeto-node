@@ -352,3 +352,7 @@ export default {
 # Utilizando Class Transformer
 
 - yarn add class-transformer
+
+# Emails pelo Amazon SES
+
+- yarn add aws-sdk
