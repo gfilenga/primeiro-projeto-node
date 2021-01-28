@@ -366,3 +366,9 @@ export default {
 - docker run --name redis -p 6379:6379 -d -t redis:alpine
 
 - yarn add ioredis
+
+# Configurando express rate limit
+
+- yarn add rate-limiter-flexible
+
+- yarn add redis
